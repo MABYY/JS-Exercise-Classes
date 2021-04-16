@@ -42,8 +42,36 @@ class Airplane {
   */
   
  class Person {
-    
+    constructor(name,age){
+      this.name = name;
+      this.age = age;
+      this.stomach = []
+    }
+    eat(someFood){
+      if(this.stomach.length <= 10){
+        this.stomach.push(someFood);
+      }
+    }
+    poop(){
+      return this.stomach = [];
+    }
+    toString(){
+      return `${this.name},${this.age}`
+    }
+  
   }
+  
+console.log(`Task 1`);
+const personOne = new Person("Mary",50);
+console.log(personOne);
+personOne.eat("Fish");
+personOne.eat("Eggplats");
+personOne.eat("Basil");
+console.log(personOne.stomach);
+console.log(personOne.poop());
+console.log(personOne);
+console.log(personOne.toString());
+
   
   /*
     TASK 2
@@ -60,9 +88,35 @@ class Airplane {
   */
   
  class Car {
-    
+   constructor(model,milesPerGallon){
+     this.model = model;
+     this.milesPerGallon = milesPerGallon;
+     this.tank = 0;
+     this.odometer = 0;
+   }
+    fill(gallons){
+      return this.tank +=gallons;
+    }
+    drive(distance){
+      let distance_left = this.milesPerGallon * this.tank;
+      if(distance_left > distance_left){
+        this.odometer += distance;
+        this.tank -= distance/this.milesPerGallon;
+      } else{
+        this.tank = 0;
+        this.odometer += distance_left;
+        // console.log(`I ran out of fuel at ${this.odometer.toFixed(2)} miles!`) ;
+        return `I ran out of fuel at ${this.odometer.toFixed(2)} miles!`;
+      }
+
+    }
   }
-  
+console.log(`Task 2`);
+const newCar = new Car("Audi",50);
+newCar.fill(3);
+console.log(newCar);
+console.log(newCar.drive(200));
+
   /*
     TASK 3
       - Write a Lambdasian class.
@@ -76,9 +130,26 @@ class Airplane {
           + {name} and {location} of course come from the instance's own properties.
   */
  class Lambdasian {
-    
+    constructor(attributes){
+      this.name = attributes.name;
+      this.age = attributes.age;
+      this.location = attributes.location;
+    };
+    speak(){
+      return `Hello my name is ${this.name}, I am from ${this.location}`;
+    };
   }
   
+  console.log(`Task 3`);
+  const newLambdasian = new Lambdasian({
+    name : "Mary",
+    age : 50,
+    location : "NYC",
+  });
+console.log(newLambdasian);
+console.log(newLambdasian.speak());
+
+
   /*
     TASK 4
       - Write an Instructor class extending Lambdasian.
@@ -93,9 +164,36 @@ class Airplane {
           + `demo` receives a `subject` string as an argument and returns the phrase 'Today we are learning about {subject}' where subject is the param passed in.
           + `grade` receives a `student` object and a `subject` string as arguments and returns '{student.name} receives a perfect score on {subject}'
   */
- class Instructor {
-
+ class Instructor extends Lambdasian{
+   constructor(attributes){
+     super(attributes);
+     this.specialty = attributes.specialty;
+     this.favLanguage = attributes.favLanguage;
+     this.catchPhrase = attributes.catchPhrase;
+   };
+   demo(subject){
+     return `Today we are learning about ${subject}`;
+   };
+   grade(student,subject){
+    return `${student.name} receives a perfect score on ${subject}`;
+  };
  }
+
+ const newInstructor = new Instructor ({
+  name : "Tom",
+  age : 50,
+  location : "NYC",
+  specialty:'redux',
+  favLanguage:"Python",
+  catchPhrase:`Don't forget the homies`,
+});
+
+console.log(`Task 4`);
+console.log(newInstructor);
+console.log(newInstructor.demo("OOP in Python"));
+console.log(newInstructor.grade(newLambdasian,"Introduction to JavaScript"));
+
+
   /*
     TASK 5
       - Write a Student class extending Lambdasian.
@@ -111,10 +209,40 @@ class Airplane {
           + `PRAssignment` a method that receives a subject as an argument and returns `student.name has submitted a PR for {subject}`
           + `sprintChallenge` similar to PRAssignment but returns `student.name has begun sprint challenge on {subject}`
   */
- class Student {
-     
+ class Student extends Lambdasian {
+     constructor(attributes){
+      super(attributes);
+      this.previousBackground = attributes.previousBackground;
+      this.className = attributes.className;
+      this.favSubjects = attributes.favSubjects;
+     };
+     listSubjects(){
+      return `Loving ${this.favSubjects}!`;
+    };
+    PRAssignment(subject){
+      return `${this.name} has submitted a PR for ${subject}`;
+    };
+    sprintChallenge(subject){
+      return `${this.name} has begun sprint challenge on ${subject}`;
+    };
  }
-  
+ 
+ console.log(`Task 5`);
+
+ const newStudent  = new Student ({
+  name : "Mary",
+  age : 50,
+  location : "NYC",
+  previousBackground: 'Finance',
+  className: 'CS132',
+  favSubjects: ['HTML', 'CSS', 'JS'],
+});
+
+console.log(newStudent);
+console.log(newStudent.listSubjects());
+console.log(newStudent.PRAssignment(`Intro to JavaScript`));
+console.log(newStudent.sprintChallenge(`Intro to JavaScript`));
+
   /*
     TASK 6
       - Write a ProjectManager class extending Instructor.
@@ -128,18 +256,73 @@ class Airplane {
           + `standUp` a method that takes in a slack channel and returns `{name} announces to {channel}, @channel standy times!`
           + `debugsCode` a method that takes in a student object and a subject and returns `{name} debugs {student.name}'s code on {subject}`
   */
- class ProjectManager {
-     
- }
+ class ProjectManager extends Instructor{
+     constructor(attributes){
+       super(attributes);
+       this.gradClassName = attributes.gradClassName;
+       this.avInstructor = attributes.avInstructor;
+     };
+     standUp(channel){
+      return `${this.name} announces to ${channel}, @channel standy times!`;
+    };
+    debugsCode(subject,student){
+      return `${this.name} debugs ${student.name}'s code on ${subject}`;
+    };
+ };
+
+ const newProjectManager = new ProjectManager ({
+  name : "Tom",
+  age : 50,
+  location : "NYC",
+  specialty:'redux',
+  favLanguage:"Python",
+  catchPhrase:`Don't forget the homies`,
+  gradClassName:"CS1",
+  avInstructor:"Sean",
+});
+
+console.log(`Task 6`);
+console.log(newProjectManager);
+console.log(newProjectManager.standUp(`channel Webpt29`));
+console.log(newProjectManager.debugsCode("JavaScript",newLambdasian));
   /*
     STRETCH PROBLEM (no tests!)
-      - Extend the functionality of the Student by adding a prop called grade and setting it equal to a number between 1-100.
-      - Now that our students have a grade build out a method on the Instructor (this will be used by _BOTH_ instructors and PM's) that will randomly add or subtract points to a student's grade. _Math.random_ will help.
+      - Extend the functionality of the Student by adding a prop called grade and setting it equal to 
+      a number between 1-100.
+      - Now that our students have a grade build out a method on the Instructor (this will be used 
+        by _BOTH_ instructors and PM's) 
+      that will randomly add or subtract points to a student's grade. _Math.random_ will help.
       - Add a graduate method to a student.
-        + This method, when called, will check the grade of the student and see if they're ready to graduate from Lambda School
-        + If the student's grade is above a 70% let them graduate! Otherwise go back to grading their assignments to increase their score.
+        + This method, when called, will check the grade of the student and see if they're ready to graduate 
+        from Lambda School
+        + If the student's grade is above a 70% let them graduate! Otherwise go back to grading 
+        their assignments to increase their score.
   */
+ class StudentExtended extends Student {
+     constructor(attributes){
+      super(attributes);
+      this.grade = attributes.grade;
+     };
+     graduate(){
+       if(this.grade>70){
+        return `Graduate`;
+       };
+      };
+    };
+  console.log(`STRETCH PROBLEM`);
+  const newStudentExtended = new StudentExtended({
+    name : "Mary",
+    age : 50,
+    location : "NYC",
+    previousBackground: 'Finance',
+    className: 'CS132',
+    favSubjects: ['HTML', 'CSS', 'JS'],
+    grade: Math.floor(Math.random() * 101),
+  })
 
+console.log(newStudentExtended);
+console.log(newStudentExtended.grade);
+console.log(newStudentExtended.graduate());
 
   //End of Challenge
   /* 🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 Please do not modify anything below this line 🛑🛑🛑🛑🛑🛑🛑🛑🛑🛑 */
